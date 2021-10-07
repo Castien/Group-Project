@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 public class User implements Serializable {
     private String name;
@@ -22,6 +23,7 @@ public class User implements Serializable {
     public User(){
         this("name", "email", "phoneNumber", "gender",
                 0, "destination", "departureTime");
+        departureTime = getNewDepartureTime();
     }
 
     @Override
@@ -91,5 +93,10 @@ public class User implements Serializable {
 
     public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
+    }
+
+    private String getNewDepartureTime(){
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return f.format(System.currentTimeMillis());
     }
 }
