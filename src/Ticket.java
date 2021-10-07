@@ -1,5 +1,7 @@
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Ticket implements Serializable {
 
@@ -47,7 +49,7 @@ public class Ticket implements Serializable {
      */
     public Ticket(User user) {
         this.user = user;
-        eta = getNewEta();
+        eta = getNewEta(user);
         ticketPrice = getNewTicketPrice();
         boardingPassNumber = getNewBoardingPassNumber();
         TicketProcessor.addTicket(this);
@@ -65,15 +67,29 @@ public class Ticket implements Serializable {
 
     /**
      * generates a new eta
+     * should only be called inside the ticket constructor
      * @return a new eta
      */
-    private String getNewEta() {
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return f.format(System.currentTimeMillis());
+    private String getNewEta(User u) {
+
+        String dt = u.getDepartureTime();  // Start date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Calendar c = Calendar.getInstance();
+        try{
+            c.setTime(sdf.parse(dt));
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        c.add(Calendar.HOUR, 1);  // number of hours to add
+        dt = sdf.format(c.getTime());
+
+        return dt;
     }
 
     /**
      * calculates the price for a new ticket
+     * should only be called inside the ticket constructor
      * @return the price for a new ticket
      */
     private double getNewTicketPrice() {
@@ -96,6 +112,7 @@ public class Ticket implements Serializable {
 
     /**
      * calls for TicketProcessor to read the ticket file and returns 1 more than the previous boardingPassNumber
+     * should only be called inside the ticket constructor
      * @return a new boardingPassNumber valued 1 more than the last
      */
     private int getNewBoardingPassNumber() {

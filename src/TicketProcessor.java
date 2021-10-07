@@ -63,7 +63,6 @@ public class TicketProcessor {
     public static void addTicket(Ticket t){
         tickets.put(t.getBoardingPassNumber(), t);
         writeTickets();
-
     }
 
     public static Map<Integer, Ticket> getTickets() {
