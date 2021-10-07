@@ -15,22 +15,6 @@ public class Access {
         return num;
     }
 
-    public static double getDoubleInput() {
-        double amount = 0;
-        do {
-            try {
-                amount = Double.parseDouble(scan.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Not a valid entry. Please enter option numbers.");
-            }
-            if (amount < 0) {
-                System.out.println("Please enter a positive number.");
-            }
-        }
-        while (amount < 0 );
-        return amount;
-    }
-
     public static String getStringInput() {
         String input = "";
         do {
