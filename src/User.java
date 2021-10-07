@@ -3,11 +3,11 @@ public class User {
     private String email;
     private String phoneNumber;
     private String gender;
-    private String age;
+    private int age;
     private String destination;
     private String departureTime;
 
-    public User(String name, String email, String phoneNumber, String gender, String age, String destination, String departureTime) {
+    public User(String name, String email, String phoneNumber, String gender, int age, String destination, String departureTime) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -15,6 +15,19 @@ public class User {
         this.age = age;
         this.destination = destination;
         this.departureTime = departureTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", destination='" + destination + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                '}';
     }
 
     public String getName() {
@@ -49,11 +62,11 @@ public class User {
         this.gender = gender;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
