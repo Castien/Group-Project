@@ -1,41 +1,61 @@
 public class Ticket {
-    private User user;
-    private String eta;
-    private double ticketPrice;
-    private final String boardingPassNumber;
+    private final User user;
+    private final String eta;
+    private final double ticketPrice;
+    private final int boardingPassNumber;
 
-    public Ticket(User user, String eta, double ticketPrice, String boardingPassNumber) {
+    private static int currentBoardingPassNumber = 100;
+
+    public Ticket(User user, String eta, double ticketPrice) {
         this.user = user;
         this.eta = eta;
-        this.ticketPrice = ticketPrice;
-        this.boardingPassNumber = boardingPassNumber;
+        this.ticketPrice = getTicketPrice();
+        this.boardingPassNumber = getNewBoardingPassNumber();
+
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "user=" + user +
+                ", eta='" + eta + '\'' +
+                ", ticketPrice=" + ticketPrice +
+                ", boardingPassNumber=" + boardingPassNumber +
+                '}';
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getEta() {
+        String departure = user.getDepartureTime();
+
         return eta;
     }
 
-    public void setEta(String eta) {
-        this.eta = eta;
-    }
-
     public double getTicketPrice() {
-        return ticketPrice;
+
+        double price = 10d;
+        int age = user.getAge();
+
+        if(age <= 12){ price*=.5;}
+        if(age >= 60){ price*=.4;}
+        if(user.getGender().equals("f")){ price*=.75;}
+
+        return price;
     }
 
-    public void setTicketPrice(double ticketPrice) {
-        this.ticketPrice = ticketPrice;
-    }
-
-    public String getBoardingPassNumber() {
+    public int getBoardingPassNumber() {
         return boardingPassNumber;
+    }
+
+    public static int getCurrentBoardingPassNumber() {
+        return currentBoardingPassNumber;
+    }
+
+    public int getNewBoardingPassNumber() {
+        currentBoardingPassNumber++;
+        return currentBoardingPassNumber;
     }
 }
