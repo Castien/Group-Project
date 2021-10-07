@@ -1,4 +1,6 @@
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String name;
     private String email;
     private String phoneNumber;
@@ -15,6 +17,11 @@ public class User {
         this.age = age;
         this.destination = destination;
         this.departureTime = departureTime;
+    }
+
+    public User(){
+        this("name", "email", "phoneNumber", "gender",
+                0, "destination", "departureTime");
     }
 
     @Override

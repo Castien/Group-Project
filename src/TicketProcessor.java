@@ -1,25 +1,42 @@
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
- * This class is for reading and writing tickets and stubs to files
+ * This class is for reading and writing tickets and ticketStubs to files
  */
 public class TicketProcessor {
     /**
      * This holds a map of the tickets in memory.
-     * This map is used as an object that gets serialized to and from files.
+     * This map is also used as an object that gets serialized to and from files.
      */
     private static Map<Integer, Ticket> tickets = new  HashMap<>();
+
+    public static void printTickets(){
+        readTickets();
+        for(Ticket t : tickets.values()){
+            System.out.println(t);
+        }
+    }
 
     /**
      * This method serializes the tickets map to a file.
      */
     public static void writeTickets(){
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\com\\company\\tickets.txt"))){
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\tickets.txt"))){
             oos.writeObject(tickets);
         }catch(IOException e){
-            e.printStackTrace();
+            System.out.println("Failed to write tickets");
+        }
+    }
+
+    public static void writeTicketStub(Ticket t){
+        String ticketStubName = "src\\ticket-" + t.getBoardingPassNumber() + ".txt";
+        try(FileWriter fw = new FileWriter(new File(ticketStubName))){
+            fw.write(t.toString());
+        }catch(IOException e){
+            System.out.println("Failed to print ticket stub");
         }
     }
 
@@ -30,13 +47,12 @@ public class TicketProcessor {
     public static void readTickets() {
         try{
             try {
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\com\\company\\tickets.txt"));
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\tickets.txt"));
                 Object obj = ois.readObject();
-                if (obj instanceof Map) tickets = (HashMap<Integer, Ticket>) obj;
-
+                if (obj instanceof HashMap) tickets = (HashMap<Integer, Ticket>) obj;
             } catch (EOFException ignored) {}
         }catch(IOException | ClassNotFoundException ignored){
-            java.lang.System.out.println("Error reading users.");
+            System.out.println("Failed to read tickets");
         }
     }
 
@@ -47,7 +63,6 @@ public class TicketProcessor {
     public static void addTicket(Ticket t){
         tickets.put(t.getBoardingPassNumber(), t);
         writeTickets();
-
 
     }
 
