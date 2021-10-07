@@ -6,6 +6,20 @@ public class Main {
      * @param args main args
      */
     public static void main(String[] args) {
-        System.out.println("Hello World");
+
+        testTicket();
+    }
+
+    private static void testUser(){
+
+    }
+
+    private static void testTicket(){
+        User u = new User();
+        Ticket t = new Ticket(u);
+        Ticket t1 = new Ticket(u);
+
+        TicketProcessor.printTickets();
+        TicketProcessor.writeTicketStub(t);
     }
 }
