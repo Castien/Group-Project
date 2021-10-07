@@ -17,9 +17,8 @@ public class Main {
     private static void testTicket(){
         User u = new User();
         Ticket t = new Ticket(u);
-        Ticket t1 = new Ticket(u);
 
         TicketProcessor.printTickets();
-        TicketProcessor.writeTicketStub(t);
+        //TicketProcessor.writeTicketStub(t);
     }
 }
