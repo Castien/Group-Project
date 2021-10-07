@@ -11,6 +11,7 @@ public class Ticket {
         this.eta = eta;
         this.ticketPrice = getTicketPrice();
         this.boardingPassNumber = getNewBoardingPassNumber();
+
     }
 
     @Override
