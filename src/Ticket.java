@@ -1,12 +1,14 @@
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-public class Ticket {
+public class Ticket implements Serializable {
+
     /**
-     * stores information input by the user
+     * a unique identifier for the ticket
      */
-    private final User user;
+    private final int boardingPassNumber;
     /**
-     * a timestamp of the estimated arival time
+     * a timestamp of the estimated arrival time
      */
     private final String eta;
     /**
@@ -14,9 +16,9 @@ public class Ticket {
      */
     private final double ticketPrice;
     /**
-     * a unique identifier for the ticket
+     * stores information input by the user
      */
-    private final int boardingPassNumber;
+    private final User user;
     /**
      * a number that is used to set boardingPassNumber
      * this ensures there will never be duplicates
@@ -31,11 +33,11 @@ public class Ticket {
      * @param ticketPrice        the price the user will pay for the ticket
      * @param boardingPassNumber the unique identifier for the ticket
      */
-    private Ticket(User user, String eta, double ticketPrice, int boardingPassNumber) {
-        this.user = user;
+    public Ticket(String eta, double ticketPrice, int boardingPassNumber, User user) {
         this.eta = eta;
         this.ticketPrice = ticketPrice;
         this.boardingPassNumber = boardingPassNumber;
+        this.user = user;
     }
 
     /**
@@ -43,20 +45,21 @@ public class Ticket {
      * Fills the unspecified fields with the getNew methods
      * @param user the user requesting a ticket
      */
-    private Ticket(User user) {
+    public Ticket(User user) {
         this.user = user;
         eta = getNewEta();
         ticketPrice = getNewTicketPrice();
         boardingPassNumber = getNewBoardingPassNumber();
+        TicketProcessor.addTicket(this);
     }
 
     @Override
     public String toString() {
         return "Ticket{" +
-                "user=" + user +
+                "boardingPassNumber=" + boardingPassNumber +
                 ", eta='" + eta + '\'' +
                 ", ticketPrice=" + ticketPrice +
-                ", boardingPassNumber=" + boardingPassNumber +
+                ", user=" + user +
                 '}';
     }
 
@@ -73,7 +76,7 @@ public class Ticket {
      * calculates the price for a new ticket
      * @return the price for a new ticket
      */
-    public double getNewTicketPrice() {
+    private double getNewTicketPrice() {
 
         double price = 10d;
         int age = user.getAge();
@@ -92,12 +95,13 @@ public class Ticket {
     }
 
     /**
-     * increments the previous boardingPassNumber and returns the value
-     * makes sure that no two boardingPassNumbers are the same
+     * calls for TicketProcessor to read the ticket file and returns 1 more than the previous boardingPassNumber
      * @return a new boardingPassNumber valued 1 more than the last
      */
-    public int getNewBoardingPassNumber() {
-        currentBoardingPassNumber++;
+    private int getNewBoardingPassNumber() {
+        TicketProcessor.readTickets();
+        while(TicketProcessor.getTickets().containsKey(currentBoardingPassNumber)) currentBoardingPassNumber++;
+
         return currentBoardingPassNumber;
     }
 
