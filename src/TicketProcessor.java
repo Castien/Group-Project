@@ -1,10 +1,11 @@
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TicketProcessor {
-    private static HashMap<String, User> tickets = new  HashMap<>();
+    private static Map<Integer, Ticket> tickets = new  HashMap<>();
 
-    public static void writeUsers(){
+    public static void writeTickets(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\com\\company\\tickets.txt"))){
             oos.writeObject(tickets);
         }catch(IOException e){
@@ -13,12 +14,12 @@ public class TicketProcessor {
     }
 
     @SuppressWarnings("unchecked")
-    public static void readUsers() {
+    public static void readTickets() {
         try{
             try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\com\\company\\tickets.txt"));
                 Object obj = ois.readObject();
-                if (obj instanceof HashMap) tickets = (HashMap<String, User>) obj;
+                if (obj instanceof Map) tickets = (HashMap<Integer, Ticket>) obj;
 
             } catch (EOFException ignored) {}
         }catch(IOException | ClassNotFoundException ignored){
@@ -26,7 +27,14 @@ public class TicketProcessor {
         }
     }
 
-    public static HashMap<String, User> getTickets() {
+    public static void addTicket(Ticket t){
+        tickets.put(t.getBoardingPassNumber(), t);
+        writeTickets();
+
+
+    }
+
+    public static Map<Integer, Ticket> getTickets() {
         return tickets;
     }
 }
