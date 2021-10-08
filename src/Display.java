@@ -5,6 +5,14 @@ import java.awt.event.ActionListener;
 
 public class Display{
 
+    private static JFormattedTextField firstNameField;
+    private static JFormattedTextField lastNameField;
+    private static JFormattedTextField emailField;
+    private static JFormattedTextField phoneNumberField;
+    private static JFormattedTextField genderField;
+    private static JFormattedTextField ageField;
+    private static JFormattedTextField destinationField;
+    private static JFormattedTextField departureTimeField;
 
     static void printUserMenu() {
         System.out.println("*********************************************");
@@ -34,14 +42,14 @@ public class Display{
 
         JButton b=new JButton("submit");
 
-        JFormattedTextField firstNameField = new JFormattedTextField();
-        JFormattedTextField lastNameField = new JFormattedTextField();
-        JFormattedTextField emailField = new JFormattedTextField();
-        JFormattedTextField phoneNumberField = new JFormattedTextField();
-        JFormattedTextField genderField = new JFormattedTextField();
-        JFormattedTextField ageField = new JFormattedTextField();
-        JFormattedTextField destinationField = new JFormattedTextField();
-        JFormattedTextField departureTimeField = new JFormattedTextField();
+        firstNameField = new JFormattedTextField();
+        lastNameField = new JFormattedTextField();
+        emailField = new JFormattedTextField();
+        phoneNumberField = new JFormattedTextField();
+        genderField = new JFormattedTextField();
+        ageField = new JFormattedTextField();
+        destinationField = new JFormattedTextField();
+        departureTimeField = new JFormattedTextField();
 
 
         gridPane.add(firstNameLabel);
@@ -80,13 +88,31 @@ public class Display{
 
 
 
-        f.setSize(400,500);
+        f.setSize(600,500);
         f.setVisible(true);
+    }
+
+    public static int parseAge(String age){
+        if(!age.equals("")){
+            return Integer.parseInt(age);
+        } return 0;
     }
 
     static class sentButtonClickedActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            System.out.println("click");
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String email = emailField.getText();
+            String phoneNumber = phoneNumberField.getText();
+            String gender = genderField.getText();
+            String age = ageField.getText();
+            String destination = destinationField.getText();
+            String departureTime = departureTimeField.getText();
+
+            String name = firstName + " " + lastName;
+
+            User u = new User(name, email, phoneNumber, gender, parseAge(age), destination, departureTime);
+            System.out.println(u);
         }
     }
 }
