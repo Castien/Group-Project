@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 
 public class Display {
 
-
     private static final boolean testFlag = true;
 
     private static JFrame f;
@@ -18,7 +17,7 @@ public class Display {
     private static JFormattedTextField departureTimeField;
 
     public static void launchGui() {
-        if(f != null) f.dispose();
+        if (f != null) f.dispose();
 
         f = new JFrame("Ticket Registration");
 
@@ -32,8 +31,7 @@ public class Display {
         JLabel destinationLabel = new JLabel("Destination: ", JLabel.RIGHT);
         JLabel departureTimeLabel = new JLabel("Departure: ", JLabel.RIGHT);
 
-
-        if(testFlag){
+        if (testFlag) {
             nameField = new JFormattedTextField("Name");
             emailField = new JFormattedTextField("puppy@hotmail.com");
             phoneNumberField = new JFormattedTextField("123-4567");
@@ -41,7 +39,7 @@ public class Display {
             ageField = new JFormattedTextField("27");
             destinationField = new JFormattedTextField("mars");
             departureTimeField = new JFormattedTextField();
-        }else{
+        } else {
             nameField = new JFormattedTextField();
             emailField = new JFormattedTextField();
             phoneNumberField = new JFormattedTextField();
@@ -49,59 +47,61 @@ public class Display {
             ageField = new JFormattedTextField();
             destinationField = new JFormattedTextField();
             departureTimeField = new JFormattedTextField();
+
         }
 
-        int width = 100;
-        int height = 20;
 
-        int xLabel = 20;
-        int xField = width + xLabel + 10;
+        JRadioButton genderButton = new JRadioButton();
 
-        int yStart = 20;
-        int spacing = 30;
+        int border = 20;
+        int gap = 10;
 
-        nameLabel.setBounds(xLabel, yStart, width, height);
-        nameField.setBounds(xField, yStart, width, height);
-        f.add(nameLabel);
+        int width = 125;
+        int height = border;
+
+        int x1 = border;
+        int x2 = width + x1 + gap;
+
+        int y = border;
+        int spacing = border + gap;
+
+        String[] labelText = {"Name: ", "Email: ", "Phone Number: ",
+                "Gender: ", "Age: ", "Destination: ", "Departure Time: "};
+
+        for (int i = 0; i < labelText.length; i++) {
+            addLabelToFrame(labelText[i], spacing, x1, y, width, height, i);
+        }
+
+        width += 75;
+
+        nameField.setBounds(x2, y, width, height);
         f.add(nameField);
 
-        emailLabel.setBounds(xLabel, yStart + spacing, width, height);
-        emailField.setBounds(xField, yStart + spacing, width, height);
-        f.add(emailLabel);
+        emailField.setBounds(x2, y + spacing, width, height);
         f.add(emailField);
 
-        phoneNumberLabel.setBounds(xLabel, yStart + (2 * spacing), width, height);
-        phoneNumberField.setBounds(xField, yStart + (2 * spacing), width, height);
-        f.add(phoneNumberLabel);
+        phoneNumberField.setBounds(x2, y + (2 * spacing), width, height);
         f.add(phoneNumberField);
 
-        genderLabel.setBounds(xLabel, yStart + (3 * spacing), width, height);
-        genderField.setBounds(xField, yStart + (3 * spacing), width, height);
-        f.add(genderLabel);
+        genderField.setBounds(x2, y + (3 * spacing), width, height);
         f.add(genderField);
 
-        ageLabel.setBounds(xLabel, yStart + (4 * spacing), width, height);
-        ageField.setBounds(xField, yStart + (4 * spacing), width, height);
-        f.add(ageLabel);
+        ageField.setBounds(x2, y + (4 * spacing), width, height);
         f.add(ageField);
 
-        destinationLabel.setBounds(xLabel, yStart + (5 * spacing), width, height);
-        destinationField.setBounds(xField, yStart + (5 * spacing), width, height);
-        f.add(destinationLabel);
+        destinationField.setBounds(x2, y + (5 * spacing), width, height);
         f.add(destinationField);
 
-        departureTimeLabel.setBounds(xLabel, yStart + (6 * spacing), width, height);
-        departureTimeField.setBounds(xField, yStart + (6 * spacing), width, height);
-        f.add(departureTimeLabel);
+        departureTimeField.setBounds(x2, y + (6 * spacing), width, height);
         f.add(departureTimeField);
 
         JButton b = new JButton("submit");
-        b.setBounds(xField, yStart + (7 * spacing), width, (height*2));
+        b.setBounds(x2, y + (labelText.length * spacing), width, (height * 2));
         f.add(b);
 
         b.addActionListener(new sentButtonClickedActionListener());
 
-        f.setSize((width * 3), ((height + spacing) * 7));
+        f.setSize((width * 2), ((height + spacing) * labelText.length));
         f.setVisible(true);
     }
 
@@ -114,109 +114,64 @@ public class Display {
 
         f.setLayout(null);
 
-        JLabel boardingPassNumberLabel = new JLabel("Boarding Pass Number: ", JLabel.RIGHT);
-        JLabel etaLabel = new JLabel("ETA: ", JLabel.RIGHT);
-        JLabel ticketPriceLabel = new JLabel("Ticket Price: ", JLabel.RIGHT);
-
-        JLabel nameLabel = new JLabel("Name: ", JLabel.RIGHT);
-        JLabel emailLabel = new JLabel("Email: ", JLabel.RIGHT);
-        JLabel phoneNumberLabel = new JLabel("Phone Number: ", JLabel.RIGHT);
-        JLabel genderLabel = new JLabel("Gender: ", JLabel.RIGHT);
-        JLabel ageLabel = new JLabel("Age: ", JLabel.RIGHT);
-        JLabel destinationLabel = new JLabel("Destination: ", JLabel.RIGHT);
-        JLabel departureTimeLabel = new JLabel("Departure: ", JLabel.RIGHT);
-
-        JLabel boardingPassNumberInfoLabel = new JLabel(t.getBoardingPassNumber() + "", JLabel.LEFT);
-        JLabel etaInfoLabel = new JLabel(t.getEta(), JLabel.LEFT);
-        JLabel ticketPriceInfoLabel = new JLabel(t.getTicketPrice() + "", JLabel.LEFT);
-
-        JLabel nameInfoLabel = new JLabel(u.getName(), JLabel.LEFT);
-        JLabel emailInfoLabel = new JLabel(u.getEmail(), JLabel.LEFT);
-        JLabel phoneNumberInfoLabel = new JLabel(u.getPhoneNumber(), JLabel.LEFT);
-        JLabel genderInfoLabel = new JLabel(u.getGender(), JLabel.LEFT);
-        JLabel ageInfoLabel = new JLabel(u.getAge() + "", JLabel.LEFT);
-        JLabel destinationInfoLabel = new JLabel(u.getDestination(), JLabel.LEFT);
-        JLabel departureTimeInfoLabel = new JLabel(u.getDepartureTime(), JLabel.LEFT);
-
-
         int width = 200;
         int height = 20;
 
-        int xLabel = 20;
-        int xField = width + xLabel + 10;
+        int x = 0;
 
-        int yStart = 20;
+        int y = 20;
         int spacing = 30;
 
+        String[] labelText = {"Boarding Pass Number: ", "ETA: ", "Ticket Price: ",
+                "Name: ", "Email: ", "Phone Number: ", "Gender: ", "Age: ", "Destination: ", "Departure Time: "};
 
-        boardingPassNumberLabel.setBounds(xLabel, yStart, width, height);
-        boardingPassNumberInfoLabel.setBounds(xField, yStart, width, height);
-        f.add(boardingPassNumberLabel);
-        f.add(boardingPassNumberInfoLabel);
+        String[] infoText = {t.getBoardingPassNumber() + "", t.getEta(), t.getTicketPrice() + "",
+                u.getName(), u.getEmail(), u.getPhoneNumber(), u.getGender(), u.getAge() + "", u.getDestination(),
+                u.getDepartureTime()};
 
-        etaLabel.setBounds(xLabel, yStart + spacing, width, height);
-        etaInfoLabel.setBounds(xField, yStart + spacing, width, height);
-        f.add(etaLabel);
-        f.add(etaInfoLabel);
-
-        ticketPriceLabel.setBounds(xLabel, yStart + (2 * spacing), width, height);
-        ticketPriceInfoLabel.setBounds(xField, yStart + (2 * spacing), width, height);
-        f.add(ticketPriceLabel);
-        f.add(ticketPriceInfoLabel);
-
-        nameLabel.setBounds(xLabel, yStart + (3 * spacing), width, height);
-        nameInfoLabel.setBounds(xField, yStart + (3 * spacing), width, height);
-        f.add(nameLabel);
-        f.add(nameInfoLabel);
-
-        emailLabel.setBounds(xLabel, yStart + (4 * spacing), width, height);
-        emailInfoLabel.setBounds(xField, yStart + (4 * spacing), width, height);
-        f.add(emailLabel);
-        f.add(emailInfoLabel);
-
-        phoneNumberLabel.setBounds(xLabel, yStart + (5 * spacing), width, height);
-        phoneNumberInfoLabel.setBounds(xField, yStart + (5 * spacing), width, height);
-        f.add(phoneNumberLabel);
-        f.add(phoneNumberInfoLabel);
-
-        genderLabel.setBounds(xLabel, yStart + (6 * spacing), width, height);
-        genderInfoLabel.setBounds(xField, yStart + (6 * spacing), width, height);
-        f.add(genderLabel);
-        f.add(genderInfoLabel);
-
-        ageLabel.setBounds(xLabel, yStart + (7 * spacing), width, height);
-        ageInfoLabel.setBounds(xField, yStart + (7 * spacing), width, height);
-        f.add(ageLabel);
-        f.add(ageInfoLabel);
-
-        destinationLabel.setBounds(xLabel, yStart + (8 * spacing), width, height);
-        destinationInfoLabel.setBounds(xField, yStart + (8 * spacing), width, height);
-        f.add(destinationLabel);
-        f.add(destinationInfoLabel);
-
-        departureTimeLabel.setBounds(xLabel, yStart + (9 * spacing), width, height);
-        departureTimeInfoLabel.setBounds(xField, yStart + (9 * spacing), width, height);
-        f.add(departureTimeLabel);
-        f.add(departureTimeInfoLabel);
+        for (int i = 0; i < labelText.length; i++) {
+            addLabelAndInfoToFrame(labelText[i], infoText[i], spacing, x, y, width, height, i);
+        }
 
         JButton b = new JButton("submit");
-        b.setBounds(width, yStart + (10 * spacing), width, (height*2));
+        b.setBounds((width / 2) - 10, y + (labelText.length * spacing), width, (height * 2));
         f.add(b);
 
         b.addActionListener(new okButtonClickedActionListener());
 
-        f.setSize((width * 3), ((height + spacing) * 9));
+        f.setSize((width * 2), ((height + spacing) * (labelText.length - 1)));
         f.setVisible(true);
     }
 
-    public static int parseAge(String age) {
+    private static void addLabelToFrame(String labelString,
+                                        int spacing, int x, int y, int width, int height, int index) {
+
+        JLabel label = new JLabel(labelString, JLabel.RIGHT);
+        label.setBounds(x, y + (index * spacing), width - 10, height);
+        f.add(label);
+    }
+
+
+    private static void addLabelAndInfoToFrame(String labelString, String infoString,
+                                               int spacing, int x, int y, int width, int height, int index) {
+
+        JLabel label = new JLabel(labelString, JLabel.RIGHT);
+        JLabel info = new JLabel(infoString, JLabel.LEFT);
+
+        label.setBounds(x, y + (index * spacing), width - 10, height);
+        info.setBounds(width + x, y + (index * spacing), width, height);
+        f.add(label);
+        f.add(info);
+    }
+
+    private static int parseAge(String age) {
         if (!age.equals("")) {
             return Integer.parseInt(age);
         }
         return 0;
     }
 
-    static class sentButtonClickedActionListener implements ActionListener {
+    private static class sentButtonClickedActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String name = nameField.getText();
             String email = emailField.getText();
@@ -232,7 +187,7 @@ public class Display {
         }
     }
 
-    static class okButtonClickedActionListener implements ActionListener {
+    private static class okButtonClickedActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             launchGui();
         }
