@@ -8,11 +8,14 @@ import java.util.Scanner;
  */
 public class TicketProcessor {
     /**
-     * This holds a map of the tickets in memory.
-     * This map is also used as an object that gets serialized to and from files.
+     * This holds a map of the tickets in memory
+     * This map is also used as an object that gets serialized to and from files
      */
     private static Map<Integer, Ticket> tickets = new  HashMap<>();
 
+    /**
+     * prints out every ticket stored in the file
+     */
     public static void printTickets(){
         readTickets();
         for(Ticket t : tickets.values()){
@@ -21,7 +24,7 @@ public class TicketProcessor {
     }
 
     /**
-     * This method serializes the tickets map to a file.
+     * This method serializes the tickets map to a file
      */
     public static void writeTickets(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\tickets.txt"))){
@@ -41,7 +44,7 @@ public class TicketProcessor {
     }
 
     /**
-     * This method reads the serialized map from a file and stores it in the tickets map instance variable.
+     * This method reads the serialized map from a file and stores it in the tickets map instance variable
      */
     @SuppressWarnings("unchecked")
     public static void readTickets() {
@@ -57,7 +60,7 @@ public class TicketProcessor {
     }
 
     /**
-     * this method is used to add tickets to the map and store them in files.
+     * this method is used to add tickets to the map and store them in files
      * @param t is the ticket to be stored
      */
     public static void addTicket(Ticket t){
