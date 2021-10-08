@@ -26,7 +26,6 @@ public class Display {
         JLabel destinationLabel = new JLabel("Destination: ");
         JLabel departureTimeLabel = new JLabel("Departure: ");
 
-
         nameField = new JFormattedTextField();
         emailField = new JFormattedTextField();
         phoneNumberField = new JFormattedTextField();
@@ -87,9 +86,7 @@ public class Display {
         b.setBounds(xField, yStart + (7 * spacing), width, (height*2));
         f.add(b);
 
-
-
-//        b.addActionListener(new sentButtonClickedActionListener());
+        b.addActionListener(new sentButtonClickedActionListener());
 
         f.setSize(400, 400);
         f.setVisible(true);
@@ -111,8 +108,7 @@ public class Display {
             String age = ageField.getText();
             String destination = destinationField.getText();
             String departureTime = departureTimeField.getText();
-
-
+            
             User u = new User(name, email, phoneNumber, gender, parseAge(age), destination, departureTime);
             System.out.println(u);
         }
