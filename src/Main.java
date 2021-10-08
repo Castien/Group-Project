@@ -9,7 +9,8 @@ public class Main {
 
 //        Display.printUserMenu();
 //        testTicket();
-        Display.gui();
+        Display.launchGui();
+
     }
 
     private static void testUser(){

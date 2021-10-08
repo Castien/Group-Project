@@ -35,7 +35,7 @@ public class TicketProcessor {
     }
 
     public static void writeTicketStub(Ticket t){
-        String ticketStubName = "src\\ticket-" + t.getBoardingPassNumber() + ".txt";
+        String ticketStubName = "src\\ticketStub.txt";
         try(FileWriter fw = new FileWriter(new File(ticketStubName))){
             fw.write(t.toString());
         }catch(IOException e){
