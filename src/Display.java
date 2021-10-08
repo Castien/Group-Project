@@ -3,10 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Display{
+public class Display {
 
-    private static JFormattedTextField firstNameField;
-    private static JFormattedTextField lastNameField;
+    private static JFormattedTextField nameField;
     private static JFormattedTextField emailField;
     private static JFormattedTextField phoneNumberField;
     private static JFormattedTextField genderField;
@@ -14,25 +13,12 @@ public class Display{
     private static JFormattedTextField destinationField;
     private static JFormattedTextField departureTimeField;
 
-    static void printUserMenu() {
-        System.out.println("*********************************************");
-        System.out.println("To apply for a Boarding Pass, press 1:");
-//        System.out.println("To print an existing Boarding Pass, press 2: ");
-        System.out.println("To exit, press 3: ");
-        System.out.println("*********************************************");
-        Access.userMenu();
-    }
+    public static void launchGui() {
+        JFrame f = new JFrame("Ticket registration");
 
-    public static void gui(){
-        JFrame f = new JFrame();
+        f.setLayout(null);
 
-        JPanel gridPane = new JPanel();
-        
-        GridLayout gridLayout = new GridLayout(0,2);
-        gridPane.setLayout(gridLayout);
-
-        JLabel firstNameLabel = new JLabel("First Name: ");
-        JLabel lastNameLabel = new JLabel("Last Name: ");
+        JLabel nameLabel = new JLabel("Name: ");
         JLabel emailLabel = new JLabel("Email: ");
         JLabel phoneNumberLabel = new JLabel("Phone Number: ");
         JLabel genderLabel = new JLabel("Gender: ");
@@ -40,10 +26,8 @@ public class Display{
         JLabel destinationLabel = new JLabel("Destination: ");
         JLabel departureTimeLabel = new JLabel("Departure: ");
 
-        JButton b=new JButton("submit");
 
-        firstNameField = new JFormattedTextField();
-        lastNameField = new JFormattedTextField();
+        nameField = new JFormattedTextField();
         emailField = new JFormattedTextField();
         phoneNumberField = new JFormattedTextField();
         genderField = new JFormattedTextField();
@@ -51,57 +35,76 @@ public class Display{
         destinationField = new JFormattedTextField();
         departureTimeField = new JFormattedTextField();
 
+        int xLabel = 50;
+        int xField = 200;
 
-        gridPane.add(firstNameLabel);
-        gridPane.add(firstNameField);
+        int width = 100;
+        int height = 20;
 
-        gridPane.add(lastNameLabel);
-        gridPane.add(lastNameField);
+        int yStart = 50;
+        int spacing = 30;
 
-        gridPane.add(emailLabel);
-        gridPane.add(emailField);
+        nameLabel.setBounds(xLabel, yStart, width, height);
+        nameField.setBounds(xField, yStart, width, height);
+        f.add(nameLabel);
+        f.add(nameField);
 
-        gridPane.add(phoneNumberLabel);
-        gridPane.add(phoneNumberField);
+        emailLabel.setBounds(xLabel, yStart + spacing, width, height);
+        emailField.setBounds(xField, yStart + spacing, width, height);
+        f.add(emailLabel);
+        f.add(emailField);
 
-        gridPane.add(genderLabel);
-        gridPane.add(genderField);
+        phoneNumberLabel.setBounds(xLabel, yStart + (2 * spacing), width, height);
+        phoneNumberField.setBounds(xField, yStart + (2 * spacing), width, height);
+        phoneNumberField.setColumns(10);
+        f.add(phoneNumberLabel);
+        f.add(phoneNumberField);
 
-        gridPane.add(ageLabel);
-        gridPane.add(ageField);
+        genderLabel.setBounds(xLabel, yStart + (3 * spacing), width, height);
+        genderField.setBounds(xField, yStart + (3 * spacing), width, height);
+        genderField.setColumns(10);
+        f.add(genderLabel);
+        f.add(genderField);
 
-        gridPane.add(destinationLabel);
-        gridPane.add(destinationField);
+        ageLabel.setBounds(xLabel, yStart + (4 * spacing), width, height);
+        ageField.setBounds(xField, yStart + (4 * spacing), width, height);
+        ageField.setColumns(10);
+        f.add(ageLabel);
+        f.add(ageField);
 
-        gridPane.add(departureTimeLabel);
-        gridPane.add(departureTimeField);
+        destinationLabel.setBounds(xLabel, yStart + (5 * spacing), width, height);
+        destinationField.setBounds(xField, yStart + (5 * spacing), width, height);
+        destinationField.setColumns(10);
+        f.add(destinationLabel);
+        f.add(destinationField);
 
-        gridPane.add(b);
+        departureTimeLabel.setBounds(xLabel, yStart + (6 * spacing), width, height);
+        departureTimeField.setBounds(xField, yStart + (6 * spacing), width, height);
+        f.add(departureTimeLabel);
+        f.add(departureTimeField);
 
-        b.addActionListener(new sentButtonClickedActionListener());
-
-        gridPane.setBounds(50, 50, 300, 400);
-
-        gridLayout.setVgap(20);
-
-        f.add(gridPane);
-
+        JButton b = new JButton("submit");
+        b.setBounds(xField, yStart + (7 * spacing), width, (height*2));
+        f.add(b);
 
 
-        f.setSize(600,500);
+
+//        b.addActionListener(new sentButtonClickedActionListener());
+
+        f.setSize(400, 400);
         f.setVisible(true);
     }
 
-    public static int parseAge(String age){
-        if(!age.equals("")){
+    public static int parseAge(String age) {
+        if (!age.equals("")) {
             return Integer.parseInt(age);
-        } return 0;
+        }
+        return 0;
     }
 
     static class sentButtonClickedActionListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
-            String firstName = firstNameField.getText();
-            String lastName = lastNameField.getText();
+        public void actionPerformed(ActionEvent e) {
+            String name = nameField.getText();
             String email = emailField.getText();
             String phoneNumber = phoneNumberField.getText();
             String gender = genderField.getText();
@@ -109,7 +112,6 @@ public class Display{
             String destination = destinationField.getText();
             String departureTime = departureTimeField.getText();
 
-            String name = firstName + " " + lastName;
 
             User u = new User(name, email, phoneNumber, gender, parseAge(age), destination, departureTime);
             System.out.println(u);
