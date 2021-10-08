@@ -78,8 +78,12 @@ public class Ticket implements Serializable {
         Calendar c = Calendar.getInstance();
         try{
             c.setTime(sdf.parse(dt));
-        }catch(ParseException e){
-            e.printStackTrace();
+        }catch(ParseException ignored){
+            try {
+                c.setTime(sdf.parse(sdf.format(System.currentTimeMillis())));
+            }catch(ParseException ignored_again){
+                ignored_again.printStackTrace();
+            }
         }
         c.add(Calendar.HOUR, 1);  // number of hours to add
         dt = sdf.format(c.getTime());
@@ -125,6 +129,8 @@ public class Ticket implements Serializable {
     public User getUser() {return user;}
 
     public String getEta() {return eta;}
+
+    public Double getTicketPrice() {return ticketPrice;}
 
     public int getBoardingPassNumber() {return boardingPassNumber;}
 
