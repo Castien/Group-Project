@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
 
 //        Display.printUserMenu();
-        testTicket();
+//        testTicket();
+        Display.gui();
     }
 
     private static void testUser(){
