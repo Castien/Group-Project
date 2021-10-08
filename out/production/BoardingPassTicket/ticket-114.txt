@@ -1,1 +1,0 @@
-Ticket{boardingPassNumber=114, eta='2021-10-07 16:08:43', ticketPrice=5.0, user=User{name='name', email='email', phoneNumber='phoneNumber', gender='gender', age=0, destination='destination', departureTime='2021-10-07 15:08:43'}}
