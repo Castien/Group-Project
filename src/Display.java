@@ -1,20 +1,36 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Display {
+import static java.lang.String.format;
 
-    private static final boolean testFlag = true;
+public class Display {
 
     private static JFrame f;
 
     private static JFormattedTextField nameField;
     private static JFormattedTextField emailField;
     private static JFormattedTextField phoneNumberField;
-    private static JFormattedTextField genderField;
-    private static JFormattedTextField ageField;
-    private static JFormattedTextField destinationField;
-    private static JFormattedTextField departureTimeField;
+
+    private static JRadioButton genderMaleButton;
+    private static JRadioButton genderFemaleButton;
+
+    private static JSpinner ageSpinner;
+
+    private static JComboBox<String> destinationField;
+    private static JComboBox<String> departureTimeField;
+
+    private static JLabel errorLabel;
+
+    private static final String REGEX_FOR_PHONE = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$";
+
+    private static final String REGEX_FOR_EMAIL = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)" +
+            "*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x" +
+            "7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0" +
+            "-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a" +
+            "-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f" +
+            "])+)\\])";
 
     public static void launchGui() {
         if (f != null) f.dispose();
@@ -23,85 +39,99 @@ public class Display {
 
         f.setLayout(null);
 
-        JLabel nameLabel = new JLabel("Name: ", JLabel.RIGHT);
-        JLabel emailLabel = new JLabel("Email: ", JLabel.RIGHT);
-        JLabel phoneNumberLabel = new JLabel("Phone Number: ", JLabel.RIGHT);
-        JLabel genderLabel = new JLabel("Gender: ", JLabel.RIGHT);
-        JLabel ageLabel = new JLabel("Age: ", JLabel.RIGHT);
-        JLabel destinationLabel = new JLabel("Destination: ", JLabel.RIGHT);
-        JLabel departureTimeLabel = new JLabel("Departure: ", JLabel.RIGHT);
 
-        if (testFlag) {
-            nameField = new JFormattedTextField("Name");
-            emailField = new JFormattedTextField("puppy@hotmail.com");
-            phoneNumberField = new JFormattedTextField("123-4567");
-            genderField = new JFormattedTextField("male");
-            ageField = new JFormattedTextField("27");
-            destinationField = new JFormattedTextField("mars");
-            departureTimeField = new JFormattedTextField();
-        } else {
-            nameField = new JFormattedTextField();
-            emailField = new JFormattedTextField();
-            phoneNumberField = new JFormattedTextField();
-            genderField = new JFormattedTextField();
-            ageField = new JFormattedTextField();
-            destinationField = new JFormattedTextField();
-            departureTimeField = new JFormattedTextField();
+        String[] data;
 
+        if(true){
+            //prefill data with strings for testing
+            data = new String[]{"Name", "puppy@hotmail.com", "123-456-7890"};
+        }else{
+            //leave data empty
+            data = new String[]{"","",""};
         }
 
+        nameField = new JFormattedTextField(data[0]);
+        emailField = new JFormattedTextField(data[1]);
+        phoneNumberField = new JFormattedTextField(data[2]);
 
-        JRadioButton genderButton = new JRadioButton();
+        String[] destinations = {"london", "tokyo", "new york", "mars", "dimension c-137"};
+        destinationField = new JComboBox<>(destinations);
+
+        final int NUM_TIMES = 24;
+        String[] departureTimes = new String[NUM_TIMES];
+        for(int i=0; i<NUM_TIMES; i++){
+            departureTimes[i] = format("%2d:00", i);
+        }
+
+        departureTimeField = new JComboBox<>(departureTimes);
+
+        genderMaleButton = new JRadioButton("m");
+        genderFemaleButton = new JRadioButton("f");
+        JRadioButton genderOtherButton = new JRadioButton("na");
+
+        ageSpinner = new JSpinner();
+
+        errorLabel = new JLabel("", JLabel.RIGHT);
 
         int border = 20;
         int gap = 10;
 
         int width = 125;
-        int height = border;
 
-        int x1 = border;
-        int x2 = width + x1 + gap;
+        int x2 = width + border + gap;
 
-        int y = border;
         int spacing = border + gap;
 
         String[] labelText = {"Name: ", "Email: ", "Phone Number: ",
                 "Gender: ", "Age: ", "Destination: ", "Departure Time: "};
 
         for (int i = 0; i < labelText.length; i++) {
-            addLabelToFrame(labelText[i], spacing, x1, y, width, height, i);
+            addLabelToFrame(labelText[i], spacing, border, border, width, border, i);
         }
 
         width += 75;
 
-        nameField.setBounds(x2, y, width, height);
+        nameField.setBounds(x2, border, width, border);
         f.add(nameField);
 
-        emailField.setBounds(x2, y + spacing, width, height);
+        emailField.setBounds(x2, border + spacing, width, border);
         f.add(emailField);
 
-        phoneNumberField.setBounds(x2, y + (2 * spacing), width, height);
+        phoneNumberField.setBounds(x2, border + (2 * spacing), width, border);
         f.add(phoneNumberField);
 
-        genderField.setBounds(x2, y + (3 * spacing), width, height);
-        f.add(genderField);
+        ButtonGroup bg = new ButtonGroup();
 
-        ageField.setBounds(x2, y + (4 * spacing), width, height);
-        f.add(ageField);
+        genderMaleButton.setBounds(x2, border + (3 * spacing), width/4, border);
+        bg.add(genderMaleButton);
+        f.add(genderMaleButton);
 
-        destinationField.setBounds(x2, y + (5 * spacing), width, height);
+        genderFemaleButton.setBounds(x2 + 50, border + (3 * spacing), width/4, border);
+        bg.add(genderFemaleButton);
+        f.add(genderFemaleButton);
+
+        genderOtherButton.setBounds(x2 + 100, border + (3 * spacing), width/4, border);
+        bg.add(genderOtherButton);
+        f.add(genderOtherButton);
+
+        ageSpinner.setBounds(x2, border + (4 * spacing), width/4, border);
+        f.add(ageSpinner);
+
+        destinationField.setBounds(x2, border + (5 * spacing), width, border);
         f.add(destinationField);
 
-        departureTimeField.setBounds(x2, y + (6 * spacing), width, height);
+        departureTimeField.setBounds(x2, border + (6 * spacing), width, border);
         f.add(departureTimeField);
 
         JButton b = new JButton("submit");
-        b.setBounds(x2, y + (labelText.length * spacing), width, (height * 2));
+        b.setBounds(x2, border + (labelText.length * spacing), width, (border * 2));
+        b.addActionListener(new sentButtonClickedActionListener());
         f.add(b);
 
-        b.addActionListener(new sentButtonClickedActionListener());
+        errorLabel.setBounds(x2, border + ((labelText.length + 2) * spacing), width, border);
+        f.add(errorLabel);
 
-        f.setSize((width * 2), ((height + spacing) * labelText.length));
+        f.setSize((width * 2), ((border + spacing) * labelText.length));
         f.setVisible(true);
     }
 
@@ -114,20 +144,19 @@ public class Display {
 
         f.setLayout(null);
 
+        int spacing = 30;
         int width = 200;
         int height = 20;
 
         int x = 0;
-
         int y = 20;
-        int spacing = 30;
 
-        String[] labelText = {"Boarding Pass Number: ", "ETA: ", "Ticket Price: ",
-                "Name: ", "Email: ", "Phone Number: ", "Gender: ", "Age: ", "Destination: ", "Departure Time: "};
+        String[] labelText = {"Boarding Pass Number: ", "Destination: ", "Departure Time: ", "ETA: ", "Ticket Price: ",
+                "Name: ", "Email: ", "Phone Number: ", "Gender: ", "Age: "};
 
-        String[] infoText = {t.getBoardingPassNumber() + "", t.getEta(), t.getTicketPrice() + "",
-                u.getName(), u.getEmail(), u.getPhoneNumber(), u.getGender(), u.getAge() + "", u.getDestination(),
-                u.getDepartureTime()};
+        String[] infoText = {t.getBoardingPassNumber() + "",
+                u.getDestination(), u.getDepartureTime(), t.getEta(), t.getTicketPrice() + "",
+                u.getName(), u.getEmail(), u.getPhoneNumber(), u.getGender(), u.getAge() + ""};
 
         for (int i = 0; i < labelText.length; i++) {
             addLabelAndInfoToFrame(labelText[i], infoText[i], spacing, x, y, width, height, i);
@@ -150,7 +179,6 @@ public class Display {
         label.setBounds(x, y + (index * spacing), width - 10, height);
         f.add(label);
     }
-
 
     private static void addLabelAndInfoToFrame(String labelString, String infoString,
                                                int spacing, int x, int y, int width, int height, int index) {
@@ -176,14 +204,29 @@ public class Display {
             String name = nameField.getText();
             String email = emailField.getText();
             String phoneNumber = phoneNumberField.getText();
-            String gender = genderField.getText();
-            String age = ageField.getText();
-            String destination = destinationField.getText();
-            String departureTime = departureTimeField.getText();
 
-            User u = new User(name, email, phoneNumber, gender, parseAge(age), destination, departureTime);
-            Ticket t = new Ticket(u);
-            launchSecondGui(t);
+            String gender = "other";
+            if(genderMaleButton.isSelected()){
+                gender = "male";
+            }else if(genderFemaleButton.isSelected()){
+                gender = "female";
+            }
+
+            int age = parseAge(ageSpinner.getValue() + "");
+            String destination = destinationField.getSelectedItem() + "";
+            String departureTime = departureTimeField.getSelectedItem() + "";
+
+            if(!email.matches(REGEX_FOR_EMAIL)){
+                errorLabel.setText("Please enter a valid email.");
+            }else if(!phoneNumber.matches(REGEX_FOR_PHONE)){
+                errorLabel.setText("Please enter a valid phone number.");
+            }else if(age < 0 || age >= 150){
+                errorLabel.setText("Enter a valid age.");
+            }else{
+                User u = new User(name, email, phoneNumber, gender, age, destination, departureTime);
+                Ticket t = new Ticket(u);
+                launchSecondGui(t);
+            }
         }
     }
 

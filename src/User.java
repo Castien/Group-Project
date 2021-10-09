@@ -94,7 +94,7 @@ public class User implements Serializable {
     }
 
     private String getNewDepartureTime(){
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat f = new SimpleDateFormat("HH:mm");
         return f.format(System.currentTimeMillis());
     }
 }
