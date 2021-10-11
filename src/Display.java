@@ -33,10 +33,8 @@ public class Display {
             "-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f" +
             "])+)\\])";
 
-    private static ArrayList<Route> routes;
 
     public static void launchGui() {
-        establishConnection();
 
         if (f != null) f.dispose();
 
@@ -59,9 +57,9 @@ public class Display {
         emailField = new JFormattedTextField(data[1]);
         phoneNumberField = new JFormattedTextField(data[2]);
 
-        String[] destinations = new String[routes.size()];
-        for(int i=0; i<routes.size(); i++){
-            destinations[i] = routes.get(i).getDestination();
+        String[] destinations = new String[Connect.getRoutes().size()];
+        for(int i=0; i<Connect.getRoutes().size(); i++){
+            destinations[i] = Connect.getRoutes().get(i).getDestination();
         }
 
         destinationField = new JComboBox<>(destinations);
@@ -208,49 +206,7 @@ public class Display {
         return 0;
     }
 
-    private static void establishConnection(){
 
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/boarding_pass","root","root");
-            if (conn != null) {
-                Statement statement = conn.createStatement();
-                ResultSet results = statement.executeQuery("SELECT destination FROM boarding_pass.route");
-
-                ArrayList<String> destinations = new ArrayList<>();
-                while(results.next()){
-                    destinations.add(results.getString(1));
-                }
-
-                results = statement.executeQuery("SELECT trip_time FROM boarding_pass.route");
-
-                ArrayList<String> times = new ArrayList<>();
-                while(results.next()){
-                    times.add(results.getString(1));
-                }
-
-                routes = new ArrayList<>();
-                if(destinations.size() == times.size()){
-                    for (int i=0; i< destinations.size(); i++){
-                        routes.add(new Route(destinations.get(i), Double.parseDouble(times.get(i))));
-                    }
-                }
-                routes.forEach(System.out::println);
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 
     private static class sentButtonClickedActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {

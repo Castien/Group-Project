@@ -9,6 +9,8 @@ public class Main {
 
 //        Display.printUserMenu();
 //        testTicket();
+
+        Connect.establishConnection();
         Display.launchGui();
 
     }
