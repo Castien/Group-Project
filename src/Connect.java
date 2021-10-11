@@ -13,8 +13,8 @@ public class Connect {
         Connection conn = null;
 
         final String url = "jdbc:mysql://localhost:3306/boarding_pass";
-        final String user = "admin";
-        final String password = "password";
+        final String user = "root";
+        final String password = "root";
 
         // create a connection to the database
         conn = DriverManager.getConnection(url, user, password);
