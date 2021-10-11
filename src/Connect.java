@@ -12,12 +12,13 @@ public class Connect {
     public static Connection getConnection() throws SQLException {
         Connection conn = null;
 
-        final String url = "jdbc:mysql://LocalServer:3306/boarding_pass";
-        final String user = "guest";
-        final String password = "qwerty123456!";
+        final String url = "jdbc:mysql://localhost:3306/boarding_pass";
+        final String user = "admin";
+        final String password = "password";
 
         // create a connection to the database
         conn = DriverManager.getConnection(url, user, password);
+
         return conn;
     }
 }
