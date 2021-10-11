@@ -85,7 +85,11 @@ public class Ticket implements Serializable {
                 ignored_again.printStackTrace();
             }
         }
-        c.add(Calendar.HOUR, 1);  // number of hours to add
+        double time = Route.getTime_map().get(u.getDestination());
+        int hours = (int)Math.floor(time);
+        int minutes = (int)(60d*(time - (double)hours));
+        c.add(Calendar.HOUR, hours);
+        c.add(Calendar.MINUTE, minutes);
         dt = sdf.format(c.getTime());
 
         return dt;
