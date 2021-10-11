@@ -73,7 +73,7 @@ public class Ticket implements Serializable {
     private String getNewEta(User u) {
 
         String dt = u.getDepartureTime();  // Start date
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
         Calendar c = Calendar.getInstance();
         try{
