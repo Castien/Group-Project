@@ -32,10 +32,8 @@ public class Display {
             "-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f" +
             "])+)\\])";
 
-    private static ArrayList<Route> routes;
 
     public static void launchGui() {
-        Connect.establishConnection();
 
         if (f != null) f.dispose();
 
@@ -58,9 +56,9 @@ public class Display {
         emailField = new JFormattedTextField(data[1]);
         phoneNumberField = new JFormattedTextField(data[2]);
 
-        String[] destinations = new String[routes.size()];
-        for(int i=0; i<routes.size(); i++){
-            destinations[i] = routes.get(i).getDestination();
+        String[] destinations = new String[Connect.getRoutes().size()];
+        for(int i=0; i<Connect.getRoutes().size(); i++){
+            destinations[i] = Connect.getRoutes().get(i).getDestination();
         }
 
         destinationField = new JComboBox<>(destinations);
@@ -206,6 +204,8 @@ public class Display {
         }
         return 0;
     }
+
+
 
     private static class sentButtonClickedActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {

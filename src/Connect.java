@@ -3,11 +3,8 @@ import java.util.ArrayList;
 
 public class Connect {
 
-    /**
-     * Get database connection when needed
-     * @return a Connection object
-     * @throws SQLException
-     */
+    private static ArrayList<Route> routes;
+
     public static void establishConnection(){
 
         Connection conn = null;
@@ -52,5 +49,7 @@ public class Connect {
         }
     }
 
-
+    public static ArrayList<Route> getRoutes() {
+        return routes;
+    }
 }
