@@ -111,7 +111,7 @@ public class Ticket implements Serializable {
         if (age >= 60) {
             price *= .4;
         }
-        if (user.getGender().equals("f")) {
+        if (user.getGender().equals("female")) {
             price *= .75;
         }
 

@@ -10,12 +10,34 @@ public class Display {
 
     private static JFrame f;
 
+    /**
+     * the text field that stores user input for the name. Cannot be blank.
+     */
     private static JFormattedTextField nameField;
+    /**
+     * the text field that stores user input for the email. must follow the REGEX_FOR_EMAIL pattern.
+     */
     private static JFormattedTextField emailField;
+    /**
+     * the text field that stores user input for the phone number. must follow the REGEX_FOR_PHONE pattern.
+     */
     private static JFormattedTextField phoneNumberField;
 
+    /**
+     * button grouped with the other gender buttons that sets gender to "male" when selected.
+     * If no button in the button group is selected, gender is set to "n/a"
+     */
     private static JRadioButton genderMaleButton;
+    /**
+     * button grouped with the other gender buttons that sets gender to "female" when selected.
+     * If no button in the button group is selected, gender is set to "n/a"
+     */
     private static JRadioButton genderFemaleButton;
+    /**
+     * button grouped with the other gender buttons that sets gender to "other" when selected.
+     * If no button in the button group is selected, gender is set to "n/a"
+     */
+    private static JRadioButton genderOtherButton;
 
     private static JSpinner ageSpinner;
 
@@ -60,7 +82,7 @@ public class Display {
         departureTimeField = new JComboBox<>(departureTimes);
         genderMaleButton = new JRadioButton("m");
         genderFemaleButton = new JRadioButton("f");
-        JRadioButton genderOtherButton = new JRadioButton("na");
+        genderOtherButton = new JRadioButton("o");
 
         ageSpinner = new JSpinner();
 
@@ -198,18 +220,22 @@ public class Display {
             String email = emailField.getText();
             String phoneNumber = phoneNumberField.getText();
 
-            String gender = "other";
+            String gender;
             if(genderMaleButton.isSelected()){
                 gender = "male";
             }else if(genderFemaleButton.isSelected()){
                 gender = "female";
-            }
+            }else if(genderOtherButton.isSelected()){
+                gender = "other";
+            }else gender = "n/a";
 
             int age = parseAge(ageSpinner.getValue() + "");
             String destination = destinationField.getSelectedItem() + "";
             String departureTime = departureTimeField.getSelectedItem() + "";
 
-            if(!email.matches(REGEX_FOR_EMAIL)){
+            if(name.equals("")){
+                errorLabel.setText("Please enter a valid name.");
+            }else if(!email.matches(REGEX_FOR_EMAIL)){
                 errorLabel.setText("Please enter a valid email.");
             }else if(!phoneNumber.matches(REGEX_FOR_PHONE)){
                 errorLabel.setText("Please enter a valid phone number.");
