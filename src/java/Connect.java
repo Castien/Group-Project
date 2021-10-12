@@ -28,8 +28,6 @@ public class Connect {
 
     /**
      * gathers information stored in the database and places it into the route instance variable
-     *
-     * @throws SQLException for sql queries
      */
     public static void readInfo() {
         Connection conn = null;
@@ -67,7 +65,6 @@ public class Connect {
                 ex.printStackTrace();
             }
         }
-        return conn;
     }
 
     /**
@@ -112,50 +109,6 @@ public class Connect {
                 ex.printStackTrace();
             }
         }
-    }
-
-    /**
-     * Insert into the ticket table
-     * @param u - User object containing the data to be inserted
-     * @param t - Ticket object containing the data to be inserted
-     */
-    public static Connection establishSave(User u, Ticket t) {
-
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/boarding_pass", "root", "root");
-            if (conn != null) {
-                String temp = "INSERT INTO ticket (boardingPassNumber, " +
-                        "name, email, phoneNumber, gender, " +
-                        "age, destination, departureTime, eta, ticketPrice) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement prep = conn.prepareStatement(temp);
-                {
-                    prep.setInt(1, t.getBoardingPassNumber());
-                    prep.setString(2, u.getName());
-                    prep.setString(3, u.getEmail());
-                    prep.setString(4, u.getPhoneNumber());
-                    prep.setString(5, u.getGender());
-                    prep.setInt(6,  u.getAge());
-                    prep.setString(7, u.getDestination());
-                    prep.setString(8, u.getDepartureTime());
-                    prep.setString(9, t.getEta());
-                    prep.setDouble(10, t.getTicketPrice());
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return conn;
     }
 
     public static Map<String, Double> getRoutes() {
