@@ -10,7 +10,7 @@ public class Main {
      * @param args main args
      */
     public static void main(String[] args) {
-        Connect.establishConnection();
+        Connect.readInfo();
         Display.launchGui();
     }
 }
