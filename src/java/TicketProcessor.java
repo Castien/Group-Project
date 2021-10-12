@@ -29,16 +29,20 @@ public class TicketProcessor {
     public static void writeTickets(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\java\\tickets.txt"))){
             oos.writeObject(tickets);
-        }catch(IOException e){
+        }catch(IOException ignored){
             System.out.println("Failed to write tickets");
         }
     }
 
+    /**
+     * writes a ticket to a file so that it can be printed out for the user
+     * @param t the ticket to be written and printed
+     */
     public static void writeTicketStub(Ticket t){
         String ticketStubName = "src\\java\\ticketStub.txt";
         try(FileWriter fw = new FileWriter(new File(ticketStubName))){
             fw.write(t.toString());
-        }catch(IOException e){
+        }catch(IOException ignored){
             System.out.println("Failed to print ticket stub");
         }
     }

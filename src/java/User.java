@@ -1,15 +1,28 @@
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
-public class User implements Serializable {
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private String gender;
-    private int age;
-    private String destination;
-    private String departureTime;
+/**
+ * a POJO for user information.
+ */
+public class User implements Serializable{
+    private final String name;
+    private final String email;
+    private final String phoneNumber;
+    private final String gender;
+    private final int age;
+    private final String destination;
+    private final String departureTime;
 
+    /**
+     * full and preferred constructor for the user class
+     * @param name name of the user
+     * @param email email for the user
+     * @param phoneNumber phone number for the user
+     * @param gender gender of the user
+     * @param age age of the user
+     * @param destination destination the user is trying to reach
+     * @param departureTime the time it will take then to reach the destination
+     */
     public User(String name, String email, String phoneNumber, String gender, int age, String destination, String departureTime) {
         this.name = name;
         this.email = email;
@@ -18,12 +31,6 @@ public class User implements Serializable {
         this.age = age;
         this.destination = destination;
         this.departureTime = departureTime;
-    }
-
-    public User(){
-        this("name", "email", "phoneNumber", "gender",
-                0, "destination", "departureTime");
-        departureTime = getNewDepartureTime();
     }
 
     @Override
@@ -41,60 +48,27 @@ public class User implements Serializable {
 
     public String getName() {return name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getGender() {
         return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
     public String getDepartureTime() {
         return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    private String getNewDepartureTime(){
-        SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-        return f.format(System.currentTimeMillis());
     }
 }
