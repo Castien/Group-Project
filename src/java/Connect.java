@@ -78,20 +78,19 @@ public class Connect {
             conn = establishConnection();
             if (conn != null) {
                 Statement statement = conn.createStatement();
-                ResultSet results = statement.executeQuery("SELECT * FROM ticket WHERE boardingPassNumber=" +
-                        "(SELECT max(boardingPassNumber) FROM ticket)");
+                ResultSet results = statement.executeQuery("SELECT max(boardingPassNumber) FROM ticket;");
                 if(!results.next()) boardingPassNumber = "100";
                 else boardingPassNumber = results.getString(1);
 
-                System.out.println(boardingPassNumber);
+                boardingPassNumber = String.valueOf(Integer.parseInt(boardingPassNumber)+1);
 
-                String temp = "INSERT INTO ticket (" +
+                String temp = "INSERT INTO ticket (boardingPassNumber, " +
                         "name, email, phoneNumber, gender, " +
                         "age, destination, departureTime, eta, ticketPrice) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement prep = conn.prepareStatement(temp);
 
-                prep.setInt(1, Integer.parseInt(boardingPassNumber));
+                prep.setString(1, boardingPassNumber);
                 prep.setString(2, u.getName());
                 prep.setString(3, u.getEmail());
                 prep.setString(4, u.getPhoneNumber());
