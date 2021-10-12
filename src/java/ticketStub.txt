@@ -1,0 +1,1 @@
+Ticket{boardingPassNumber=179, eta='00:30', ticketPrice=5.0, user=User{name='Name', email='puppy@hotmail.com', phoneNumber='123-456-7890', gender='other', age=0, destination='Dimension C-137', departureTime=' 0:00'}}
