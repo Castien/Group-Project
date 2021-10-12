@@ -45,6 +45,7 @@ public class TicketProcessor {
         }catch(IOException ignored){
             System.out.println("Failed to print ticket stub");
         }
+        Connect.saveTicket(t);
     }
 
     /**
