@@ -42,27 +42,10 @@ public class Display {
 
         f.setLayout(null);
 
-
-        String[] data;
-
-        if(true){
-            //prefill data with strings for testing
-            data = new String[]{"Name", "puppy@hotmail.com", "123-456-7890"};
-        }else{
-            //leave data empty
-            data = new String[]{"","",""};
-        }
-
-        nameField = new JFormattedTextField(data[0]);
-        emailField = new JFormattedTextField(data[1]);
-        phoneNumberField = new JFormattedTextField(data[2]);
-
         String[] destinations = new String[Connect.getRoutes().size()];
         for(int i=0; i<Connect.getRoutes().size(); i++){
             destinations[i] = Connect.getRoutes().get(i).getDestination();
         }
-
-        destinationField = new JComboBox<>(destinations);
 
         final int NUM_TIMES = 24;
         String[] departureTimes = new String[NUM_TIMES];
@@ -70,8 +53,11 @@ public class Display {
             departureTimes[i] = format("%2d:00", i);
         }
 
+        nameField = new JFormattedTextField("Name");
+        emailField = new JFormattedTextField("puppy@hotmail.com");
+        phoneNumberField = new JFormattedTextField("123-456-7890");
+        destinationField = new JComboBox<>(destinations);
         departureTimeField = new JComboBox<>(departureTimes);
-
         genderMaleButton = new JRadioButton("m");
         genderFemaleButton = new JRadioButton("f");
         JRadioButton genderOtherButton = new JRadioButton("na");

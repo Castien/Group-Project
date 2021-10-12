@@ -27,7 +27,7 @@ public class TicketProcessor {
      * This method serializes the tickets map to a file
      */
     public static void writeTickets(){
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\tickets.txt"))){
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\java\\tickets.txt"))){
             oos.writeObject(tickets);
         }catch(IOException e){
             System.out.println("Failed to write tickets");
@@ -35,7 +35,7 @@ public class TicketProcessor {
     }
 
     public static void writeTicketStub(Ticket t){
-        String ticketStubName = "src\\ticketStub.txt";
+        String ticketStubName = "src\\java\\ticketStub.txt";
         try(FileWriter fw = new FileWriter(new File(ticketStubName))){
             fw.write(t.toString());
         }catch(IOException e){
@@ -50,7 +50,7 @@ public class TicketProcessor {
     public static void readTickets() {
         try{
             try {
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\tickets.txt"));
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\java\\tickets.txt"));
                 Object obj = ois.readObject();
                 if (obj instanceof HashMap) tickets = (HashMap<Integer, Ticket>) obj;
             } catch (EOFException ignored) {}
