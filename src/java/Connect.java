@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,22 +69,28 @@ public class Connect {
     /**
      * Insert into the ticket table
      *
-     * @param t - Ticket object containing the data to be inserted
      */
-    public static void saveTicket(Ticket t) {
+    public static int saveTicket(User u, String eta, double ticketPrice) {
 
-        User u = t.getUser();
+        String boardingPassNumber = "";
         Connection conn = null;
         try {
             conn = establishConnection();
             if (conn != null) {
+                Statement statement = conn.createStatement();
+                ResultSet results = statement.executeQuery("SELECT max(boardingPassNumber) FROM ticket;");
+                if(!results.next()) boardingPassNumber = "100";
+                else boardingPassNumber = results.getString(1);
+
+                boardingPassNumber = String.valueOf(Integer.parseInt(boardingPassNumber)+1);
+
                 String temp = "INSERT INTO ticket (boardingPassNumber, " +
                         "name, email, phoneNumber, gender, " +
                         "age, destination, departureTime, eta, ticketPrice) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement prep = conn.prepareStatement(temp);
 
-                prep.setString(1, String.valueOf(t.getBoardingPassNumber()));
+                prep.setString(1, boardingPassNumber);
                 prep.setString(2, u.getName());
                 prep.setString(3, u.getEmail());
                 prep.setString(4, u.getPhoneNumber());
@@ -93,10 +98,10 @@ public class Connect {
                 prep.setString(6, String.valueOf(u.getAge()));
                 prep.setString(7, u.getDestination());
                 prep.setString(8, u.getDepartureTime());
-                prep.setString(9, t.getEta());
-                prep.setString(10, String.valueOf(t.getTicketPrice()));
-                
+                prep.setString(9, eta);
+                prep.setString(10, String.valueOf(ticketPrice));
                 prep.execute();
+
             }else System.out.println("failed");
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -109,6 +114,7 @@ public class Connect {
                 ex.printStackTrace();
             }
         }
+        return Integer.parseInt(boardingPassNumber);
     }
 
     public static Map<String, Double> getRoutes() {
