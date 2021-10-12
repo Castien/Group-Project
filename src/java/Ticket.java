@@ -3,6 +3,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * stores and calculates information about tickets.
+ */
 public class Ticket implements Serializable {
 
     /**
@@ -85,7 +88,7 @@ public class Ticket implements Serializable {
                 ignored_again.printStackTrace();
             }
         }
-        double time = Route.getTime_map().get(u.getDestination());
+        double time = Connect.getRoutes().get(u.getDestination());
         int hours = (int)Math.floor(time);
         int minutes = (int)(60d*(time - (double)hours));
         c.add(Calendar.HOUR, hours);
@@ -137,6 +140,4 @@ public class Ticket implements Serializable {
     public Double getTicketPrice() {return ticketPrice;}
 
     public int getBoardingPassNumber() {return boardingPassNumber;}
-
-    public static int getCurrentBoardingPassNumber() {return currentBoardingPassNumber;}
 }
