@@ -45,7 +45,6 @@ public class TicketProcessor {
         }catch(IOException ignored){
             System.out.println("Failed to print ticket stub");
         }
-        Connect.saveTicket(t);
     }
 
     /**
@@ -72,6 +71,7 @@ public class TicketProcessor {
         tickets.put(t.getBoardingPassNumber(), t);
         writeTickets();
     }
+
 
     public static Map<Integer, Ticket> getTickets() {
         return tickets;
