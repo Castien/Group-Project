@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import static java.lang.String.format;
 
@@ -205,8 +204,6 @@ public class Display {
         return 0;
     }
 
-
-
     private static class sentButtonClickedActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String name = nameField.getText();
@@ -233,6 +230,8 @@ public class Display {
             }else{
                 User u = new User(name, email, phoneNumber, gender, age, destination, departureTime);
                 Ticket t = new Ticket(u);
+                //call method to write ticket to DB.
+                createTicketRecord(u, t);
                 launchSecondGui(t);
             }
         }
@@ -242,5 +241,9 @@ public class Display {
         public void actionPerformed(ActionEvent e) {
             launchGui();
         }
+    }
+
+    public static void createTicketRecord(User u, Ticket t) {
+        Connect.establishSave(u, t);
     }
 }
