@@ -155,7 +155,7 @@ public class Display {
             addLabelAndInfoToFrame(labelText[i], infoText[i], spacing, x, y, width, height, i);
         }
 
-        JButton b = new JButton("submit");
+        JButton b = new JButton("OK");
         b.setBounds((width / 2) - 10, y + (labelText.length * spacing), width, (height * 2));
         f.add(b);
 
@@ -192,8 +192,6 @@ public class Display {
         return 0;
     }
 
-
-
     private static class sentButtonClickedActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String name = nameField.getText();
@@ -220,6 +218,7 @@ public class Display {
             }else{
                 User u = new User(name, email, phoneNumber, gender, age, destination, departureTime);
                 Ticket t = new Ticket(u);
+                TicketProcessor.writeTicketStub(t);
                 launchSecondGui(t);
             }
         }
