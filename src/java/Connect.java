@@ -88,16 +88,16 @@ public class Connect {
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement prep = conn.prepareStatement(temp);
                 {
-                    prep.setString(1, String.valueOf(t.getBoardingPassNumber()));
+                    prep.setInt(1, t.getBoardingPassNumber());
                     prep.setString(2, u.getName());
                     prep.setString(3, u.getEmail());
                     prep.setString(4, u.getPhoneNumber());
                     prep.setString(5, u.getGender());
-                    prep.setString(6, String.valueOf(u.getAge()));
+                    prep.setInt(6,  u.getAge());
                     prep.setString(7, u.getDestination());
                     prep.setString(8, u.getDepartureTime());
                     prep.setString(9, t.getEta());
-                    prep.setString(10, String.valueOf(t.getTicketPrice()));
+                    prep.setDouble(10, t.getTicketPrice());
                 }
             }
         } catch (SQLException ex) {
