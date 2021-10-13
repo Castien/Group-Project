@@ -14,16 +14,6 @@ public class TicketProcessor {
     private static Map<Integer, Ticket> tickets = new  HashMap<>();
 
     /**
-     * prints out every ticket stored in the file
-     */
-    public static void printTickets(){
-        readTickets();
-        for(Ticket t : tickets.values()){
-            System.out.println(t);
-        }
-    }
-
-    /**
      * This method serializes the tickets map to a file
      */
     public static void writeTickets(){
@@ -72,6 +62,14 @@ public class TicketProcessor {
         writeTickets();
     }
 
+    /**
+     * prints out every ticket stored in the file
+     */
+    public static void printTickets(){
+        for(Ticket t : tickets.values()){
+            System.out.println(t);
+        }
+    }
 
     public static Map<Integer, Ticket> getTickets() {
         return tickets;
