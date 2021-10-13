@@ -268,6 +268,7 @@ public class Display {
      * @return age parsed into an integer, 0 when blank
      */
     private static int parseAge(String age) {
+
         if (!age.equals("")) {
             return Integer.parseInt(age);
         }

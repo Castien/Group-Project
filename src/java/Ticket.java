@@ -55,8 +55,6 @@ public class Ticket implements Serializable {
         eta = getNewEta(user);
         ticketPrice = getNewTicketPrice();
         boardingPassNumber = Connect.saveTicket(user, eta, ticketPrice);
-//        TicketProcessor.addTicket(this);
-
     }
 
     @Override
