@@ -5,14 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TicketTest {
 
-    private User user;
     private Ticket ticket;
 
     @BeforeEach
     void setUp() {
-        user = new User("Bob", "bob@email.com",
+        User user = new User("Bob", "bob@email.com",
                 "555-555-5555", "m", 25,
-                "Tokyo", "1:00" );
+                "Tokyo", "1:00");
         ticket = new Ticket("2:00", 10.00, 101, user);
     }
 

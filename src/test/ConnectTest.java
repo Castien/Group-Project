@@ -1,23 +1,17 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConnectTest {
 
-    @BeforeEach
-    void setUp() {
+    @Test
+    void readInfo() {
+        Connect.readInfo();
+        assertFalse(Connect.getRoutes().isEmpty(), "readInfo failed");
     }
 
     @Test
-    void establishConnection() {
-    }
-
-    @Test
-    void getRoutes() {
-    }
-
-    @Test
-    void establishSave() {
+    void saveTicket() {
+        assertNotEquals((double) Connect.saveTicket(new User(), "00:30", 10), null, "saveTicket failed");
     }
 }

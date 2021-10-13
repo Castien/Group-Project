@@ -16,13 +16,13 @@ public class Connect {
 
     /**
      * establishes a connection to the database on a local mysql server
+     *
+     * @return the connection established with the database
+     * @throws SQLException an exception if the database cannot be reached
      */
     private static Connection establishConnection() throws SQLException {
-
-        Connection conn = null;
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/boarding_pass", "root", "root");
-        return conn;
+        return DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/boarding_pass", "root", "root");
     }
 
     /**
@@ -67,8 +67,12 @@ public class Connect {
     }
 
     /**
-     * Insert into the ticket table
+     * Inserts a new ticket into the ticket table and gets a boardingPassNumber for the ticket object
      *
+     * @param u           the user requesting a ticket
+     * @param eta         the eta for the ticket. Passed in by the ticket constructor
+     * @param ticketPrice the ticket price. Passed in by the ticket constructor
+     * @return the boardingPassNumber for the ticket. Database calls make sure it's unique.
      */
     public static int saveTicket(User u, String eta, double ticketPrice) {
 
@@ -82,9 +86,9 @@ public class Connect {
 
                 results.next();
                 boardingPassNumber = results.getString(1);
-                if(boardingPassNumber == null) boardingPassNumber = "100";
+                if (boardingPassNumber == null) boardingPassNumber = "100";
 
-                boardingPassNumber = String.valueOf(Integer.parseInt(boardingPassNumber)+1);
+                boardingPassNumber = String.valueOf(Integer.parseInt(boardingPassNumber) + 1);
 
                 String temp = "INSERT INTO ticket (boardingPassNumber, " +
                         "name, email, phoneNumber, gender, " +
@@ -104,7 +108,7 @@ public class Connect {
                 prep.setString(10, String.valueOf(ticketPrice));
                 prep.execute();
 
-            }else System.out.println("failed");
+            } else System.out.println("failed");
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {

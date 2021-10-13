@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 
 /**
  * a POJO for user information.
+ * has fields for name, email, phoneNumber, gender, age, destination, and departureTime
  */
 public class User implements Serializable{
     private final String name;
@@ -31,6 +32,11 @@ public class User implements Serializable{
         this.age = age;
         this.destination = destination;
         this.departureTime = departureTime;
+    }
+
+    public User(){
+        this("Zach", "puppy@aol.com", "123 456 7890", "male", 23,
+                "Mars", "00:00");
     }
 
     @Override
