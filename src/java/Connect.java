@@ -79,8 +79,10 @@ public class Connect {
             if (conn != null) {
                 Statement statement = conn.createStatement();
                 ResultSet results = statement.executeQuery("SELECT max(boardingPassNumber) FROM ticket;");
-                if(!results.next()) boardingPassNumber = "100";
-                else boardingPassNumber = results.getString(1);
+
+                results.next();
+                boardingPassNumber = results.getString(1);
+                if(boardingPassNumber == null) boardingPassNumber = "100";
 
                 boardingPassNumber = String.valueOf(Integer.parseInt(boardingPassNumber)+1);
 
