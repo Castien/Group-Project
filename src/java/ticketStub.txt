@@ -1,1 +1,1 @@
-Ticket{boardingPassNumber=100, eta='00:30', ticketPrice=5.0, user=User{name='Name', email='puppy@hotmail.com', phoneNumber='123-456-7890', gender='n/a', age=0, destination='Mars', departureTime=' 0:00'}}
+Ticket{boardingPassNumber=116, eta='00:30', ticketPrice=7.5, user=User{name='dork', email='puppy@hotmail.com', phoneNumber='123-456-7890', gender='female', age=18, destination='Mars', departureTime=' 0:00'}}
